@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="day">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>High &amp; Dry — The Fair-Weather Dock</title>
+  <meta name="description" content="An interactive maritime physics diorama for stress-testing fair-weather friends with heavy couches, sudden rainstorms, split dinner checks, and 5 AM airport runs." />
+  <meta name="theme-color" content="#f5efe4" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#harbor-stage">Skip to the harbor stage</a>
+
+  <header class="masthead">
+    <div class="shell masthead-inner">
+      <a class="harbor-mark" href="#top" id="brandHomeLink">
+        <span class="harbor-code">PIER NO. 04 // EXCUSE SEA</span>
+      </a>
+      <nav class="masthead-actions" aria-label="Harbor controls and sections">
+        <a class="nav-link" href="#field-guide" id="fieldGuideNavLink">Field Guide</a>
+        <button type="button" class="utility-btn" id="themeToggleBtn" aria-label="Switch harbor lighting">
+          Harbor: Day
+        </button>
+        <button type="button" class="utility-btn" id="soundToggleBtn" aria-pressed="true">
+          Audio: On
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top" class="shell">
+    <section class="hero" aria-labelledby="pageTitle">
+      <div class="hero-copy">
+        <h1 id="pageTitle">High &amp; Dry: The Fair-Weather Dock</h1>
+        <p class="subhead">
+          Everyone talks loud on a sunny pier. Invite a crowd onto the planks, flick the suspicious ones toward Excuse Sea, or run a minor real-life inconvenience to see who stays bolted to the timber.
+        </p>
+      </div>
+
+      <div class="telemetry-ledger" aria-label="Harbor scoreboard">
+        <div class="stat-block">
+          <span class="stat-label">Flakes Exposed</span>
+          <span class="stat-value" id="flakesCountReadout">0</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-label">On the Pier</span>
+          <span class="stat-value" id="pierCountReadout">0</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-label">Real Ones</span>
+          <span class="stat-value real-highlight" id="realCountReadout">0</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="harbor-deck" id="harbor-stage" aria-label="Interactive Fair-Weather Pier">
+      <div class="stage-topbar">
+        <div class="stage-instructions">
+          <span><strong>Click pier</strong> to invite</span>
+          <span><strong>Poke</strong> to inspect</span>
+          <span><strong>Drag &amp; flick</strong> into Excuse Sea</span>
+          <span><strong>Click the duck</strong> if you need a squeak</span>
+        </div>
+        <span class="weather-readout" id="weatherReadout">CONDITIONS: CLEAR // 72°F</span>
+      </div>
+
+      <div class="stage-frame" id="stageFrame">
+        <canvas id="harborCanvas" aria-label="Animated wooden pier over Excuse Sea populated by cartoon friends"></canvas>
+        <div class="stage-toast" id="stageToast" role="status" aria-live="polite"></div>
+      </div>
+
+      <div class="control-bar">
+        <div class="control-row">
+          <form class="spawn-group" id="inviteForm" autocomplete="off">
+            <label for="customNameInput" class="skip-link">Optional friend label</label>
+            <input
+              type="text"
+              id="customNameInput"
+              class="name-input"
+              maxlength="18"
+              placeholder="Optional nickname..."
+            />
+            <button type="submit" class="btn btn-primary" id="inviteFriendBtn">
+              + Invite to Pier <span class="kbd-hint">I</span>
+            </button>
+          </form>
+
+          <button type="button" class="btn btn-quiet" id="resetDockBtn">
+            Fresh Pier <span class="kbd-hint">R</span>
+          </button>
+        </div>
+
+        <div class="control-row">
+          <div class="test-group" role="group" aria-label="Friendship stress tests">
+            <span class="test-group-label">Stress Tests:</span>
+            <button type="button" class="btn" id="testCouchBtn" data-scary="1">
+              Move a Couch <span class="kbd-hint">1</span>
+            </button>
+            <button type="button" class="btn" id="testRainBtn" data-scary="1">
+              Make It Rain <span class="kbd-hint">2</span>
+            </button>
+            <button type="button" class="btn" id="testQuietBtn" data-scary="1">
+              Stop Texting First <span class="kbd-hint">3</span>
+            </button>
+            <button type="button" class="btn" id="testBillBtn" data-scary="1">
+              Split the Check <span class="kbd-hint">4</span>
+            </button>
+            <button type="button" class="btn" id="testAirportBtn" data-scary="1">
+              5 AM Airport Run <span class="kbd-hint">5</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="logbook-bar" aria-live="polite">
+        <span class="logbook-tag">Harbor Log</span>
+        <p class="logbook-entry" id="harborLogEntry">Pier open. Five guests loitering on the planks; structural integrity unverified.</p>
+      </div>
+    </section>
+
+    <section class="field-guide" id="field-guide" aria-labelledby="fieldGuideHeading">
+      <div class="section-header">
+        <h2 id="fieldGuideHeading">Maritime Field Guide to Pier Guests</h2>
+        <p>SIX DOCUMENTED COMPOSITIONS // OBSERVED UNDER MILD INCONVENIENCE</p>
+      </div>
+
+      <div class="specimen-ledger">
+        <article class="specimen-item">
+          <div class="specimen-glyph" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="6" y="3" width="12" height="18" rx="2" fill="#eab308" fill-opacity="0.22" />
+              <path d="M9 8h6M9 12h6M12 16v5" />
+            </svg>
+          </div>
+          <div>
+            <div class="specimen-meta">Specimen 01 // Corrugated Pulp</div>
+            <h3>The Hype Cutout</h3>
+            <p>Shouts "RIDE OR DIE" in every group chat and comments fire emojis within four seconds. Possesses the load-bearing capacity of a damp cereal box.</p>
+            <p class="specimen-tell">Diagnostic tell: Hollow thud when poked; folds flat at first sight of furniture.</p>
+          </div>
+        </article>
+
+        <article class="specimen-item">
+          <div class="specimen-glyph" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <ellipse cx="12" cy="9" rx="6" ry="7" fill="#f43f5e" fill-opacity="0.22" />
+              <path d="M12 16c0 3-2 4-2 6" />
+            </svg>
+          </div>
+          <div>
+            <div class="specimen-meta">Specimen 02 // Pressurized Gas</div>
+            <h3>The Helium Bestie</h3>
+            <p>Perpetually thrilled to see you, insists you "MUST catch up this week," and is already drifting into the upper stratosphere before choosing a Tuesday.</p>
+            <p class="specimen-tell">Diagnostic tell: Squeaks on contact; untethers immediately when plans require a calendar.</p>
+          </div>
+        </article>
+
+        <article class="specimen-item">
+          <div class="specimen-glyph" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="5" y="4" width="14" height="16" rx="4" stroke-dasharray="3 2" fill="#38bdf8" fill-opacity="0.18" />
+              <path d="M8 10h8M8 14h5" />
+            </svg>
+          </div>
+          <div>
+            <div class="specimen-meta">Specimen 03 // Low-Bitrate Projection</div>
+            <h3>The Signal Hologram</h3>
+            <p>Renders in crisp high definition whenever you are hosting dinner. Drops to 144p static the moment you stop initiating every single conversation.</p>
+            <p class="specimen-tell">Diagnostic tell: Dissolves into scanlines and leaves a floating "Seen 3w ago" receipt.</p>
+          </div>
+        </article>
+
+        <article class="specimen-item">
+          <div class="specimen-glyph" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M4 16l5-5 4 3 7-7" />
+              <path d="M15 7h5v5" />
+            </svg>
+          </div>
+          <div>
+            <div class="specimen-meta">Specimen 04 // Coiled Spring</div>
+            <h3>The Track-Star Bolter</h3>
+            <p>Keeps marathon shoes double-knotted at all times. Clocks a sub-four-minute mile off the pier the instant an itemized restaurant check hits the table.</p>
+            <p class="specimen-tell">Diagnostic tell: Sweats visibly when your cursor nears any responsibility button.</p>
+          </div>
+        </article>
+
+        <article class="specimen-item">
+          <div class="specimen-glyph" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M3 16h18l-3 4H6l-3-4z" fill="#94a3b8" fill-opacity="0.25" />
+              <path d="M12 5l5 11H7l5-11z" />
+            </svg>
+          </div>
+          <div>
+            <div class="specimen-meta">Specimen 05 // Uncoated Stock</div>
+            <h3>The Origami Sailor</h3>
+            <p>Allergic to overcast skies, hard weeks, or unglamorous errands. Creases neatly into a paper boat at 62% humidity and sails smoothly out of reach.</p>
+            <p class="specimen-tell">Diagnostic tell: Refuses indoor/outdoor transitions; catches the first gust east.</p>
+          </div>
+        </article>
+
+        <article class="specimen-item is-real">
+          <div class="specimen-glyph" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
+              <rect x="5" y="4" width="14" height="16" rx="5" fill="#10b981" fill-opacity="0.22" />
+              <circle cx="9.5" cy="10.5" r="1" fill="currentColor" />
+              <circle cx="14.5" cy="10.5" r="1" fill="currentColor" />
+              <path d="M9.5 14.5c1.2 1 3.8 1 5 0" />
+            </svg>
+          </div>
+          <div>
+            <div class="specimen-meta">Specimen 06 // Seasoned Cast-Iron</div>
+            <h3>The Real One</h3>
+            <p>Rare. Speaks in lowercase. Brings snacks without being asked, puts on a yellow slicker when it pours, grabs the heavy end of the sofa, and refuses to be flicked off the pier.</p>
+            <p class="specimen-tell">Diagnostic tell: Rings with a solid iron clunk; plants boots at the edge of the dock.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="harbor-footer">
+    <div class="shell footer-inner">
+      <p class="footer-note">Built on Pier No. 04 by Graham, Ziggy &amp; Jade. Keep the ones who lift with their knees.</p>
+      <span class="kbd-legend">Shortcuts: [I] Invite · [1–5] Stress Tests · [M] Audio · [R] Fresh Pier</span>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
