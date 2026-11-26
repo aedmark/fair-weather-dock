@@ -263,6 +263,14 @@ body {
   color: var(--accent-real);
 }
 
+.stat-value.warmth-highlight {
+  color: hsl(34, 88%, 42%);
+}
+
+[data-theme="night"] .stat-value.warmth-highlight {
+  color: hsl(43, 94%, 62%);
+}
+
 /* ==========================================================================
    Harbor Stage & Control Deck
    ========================================================================== */
@@ -355,6 +363,98 @@ body {
   transform: translateX(-50%) translateY(0);
 }
 
+/* Low-Tide Mirror & Full Harbor Session Overlay Card */
+.mirror-card {
+  position: absolute;
+  inset: auto 50% 1rem auto;
+  transform: translateX(50%);
+  width: min(540px, calc(100% - 1.5rem));
+  padding: 1.15rem 1.3rem;
+  background: var(--bg-surface);
+  color: var(--ink-primary);
+  border: 1.5px solid var(--line-strong);
+  border-radius: var(--radius-md);
+  box-shadow: 0 20px 44px hsla(210, 50%, 8%, 0.34);
+  z-index: 12;
+  animation: mirrorRise 260ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mirror-card[hidden] {
+  display: none;
+}
+
+.mirror-card.is-celebration {
+  border-color: var(--accent-real);
+}
+
+@keyframes mirrorRise {
+  from {
+    opacity: 0;
+    transform: translateX(50%) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(50%) translateY(0);
+  }
+}
+
+.mirror-card-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-buoy);
+}
+
+.mirror-card.is-celebration .mirror-card-eyebrow {
+  color: var(--accent-real);
+}
+
+.mirror-card-title {
+  margin: 0.25rem 0 0.4rem;
+  font-family: var(--font-display);
+  font-size: 1.28rem;
+  line-height: 1.2;
+}
+
+.mirror-card-body {
+  margin: 0;
+  font-size: 0.87rem;
+  color: var(--ink-secondary);
+  line-height: 1.5;
+}
+
+.mirror-list {
+  margin: 0.55rem 0 0.65rem;
+  padding-left: 1.15rem;
+  font-size: 0.82rem;
+  color: var(--ink-secondary);
+  line-height: 1.48;
+}
+
+.mirror-list li + li {
+  margin-top: 0.22rem;
+}
+
+.mirror-motto {
+  margin: 0.6rem 0 0.8rem;
+  padding: 0.45rem 0.65rem;
+  border-left: 3px solid var(--accent-real);
+  background: var(--accent-real-soft);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink-primary);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.mirror-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
 /* Control Bar */
 .control-bar {
   padding: 0.95rem 1rem;
@@ -414,6 +514,23 @@ body {
   letter-spacing: 0.06em;
   color: var(--ink-muted);
   margin-right: 0.2rem;
+}
+
+.test-group-label.care-label {
+  color: var(--accent-real);
+  font-weight: 600;
+}
+
+.btn-care {
+  background: var(--accent-real-soft);
+  border-color: hsla(162, 62%, 32%, 0.36);
+  color: var(--ink-primary);
+}
+
+.btn-care:hover {
+  background: var(--accent-real);
+  color: var(--ink-on-accent);
+  border-color: transparent;
 }
 
 .btn {
@@ -483,6 +600,125 @@ body {
   padding: 0.05rem 0.3rem;
   border-radius: 3px;
   background: hsla(0, 0%, 50%, 0.14);
+}
+
+/* Harbor Radio & Crowd Stem Strip */
+.radio-row {
+  padding-top: 0.65rem;
+  border-top: 1px dashed var(--line-subtle);
+  gap: 0.6rem 1rem;
+}
+
+.radio-tuner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.radio-pill {
+  appearance: none;
+  padding: 0.34rem 0.62rem;
+  font-family: var(--font-mono);
+  font-size: 0.73rem;
+  font-weight: 600;
+  color: var(--ink-secondary);
+  background: var(--bg-page);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 130ms ease, color 130ms ease, border-color 130ms ease, transform 80ms ease;
+}
+
+.radio-pill:hover {
+  color: var(--ink-primary);
+  border-color: var(--ink-primary);
+}
+
+.radio-pill:active {
+  transform: translateY(1px);
+}
+
+.radio-pill.is-active {
+  background: var(--accent-sea);
+  color: var(--ink-on-accent);
+  border-color: transparent;
+}
+
+.radio-pill[data-station="off"].is-active {
+  background: var(--ink-muted);
+  color: var(--ink-on-accent);
+}
+
+.band-ledger {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem 0.75rem;
+  margin-left: auto;
+}
+
+.radio-now-playing {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-secondary);
+  white-space: nowrap;
+}
+
+.stem-strip {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.28rem;
+}
+
+.stem-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
+  padding: 0.18rem 0.46rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ink-muted);
+  background: var(--bg-recessed);
+  border: 1px solid var(--line-subtle);
+  opacity: 0.45;
+  transition: opacity 180ms ease, color 180ms ease, border-color 180ms ease, background-color 180ms ease;
+  cursor: help;
+}
+
+.stem-chip::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.45;
+}
+
+.stem-chip.is-lit {
+  opacity: 1;
+  color: var(--ink-primary);
+  background: var(--bg-page);
+  border-color: var(--line-strong);
+}
+
+.stem-chip.is-lit::before {
+  background: var(--accent-slicker);
+  opacity: 1;
+}
+
+.stem-chip.is-real.is-lit {
+  color: var(--accent-real);
+  background: var(--accent-real-soft);
+  border-color: var(--accent-real);
+}
+
+.stem-chip.is-real.is-lit::before {
+  background: var(--accent-real);
 }
 
 /* Harbor Logbook Feed */
@@ -615,8 +851,53 @@ body {
 }
 
 /* ==========================================================================
-   Harbor Footer
+   Harbor Postcard & Footer
    ========================================================================== */
+
+.harbor-postcard {
+  padding: 0 0 3rem;
+}
+
+.postcard-inner {
+  padding: 1.75rem 2rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--line-strong);
+  border-left: 4px solid var(--accent-real);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-stage);
+}
+
+.postcard-stamp {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-real);
+}
+
+.postcard-inner h2 {
+  margin: 0.4rem 0 0.75rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.5vw, 1.9rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.postcard-inner p {
+  margin: 0;
+  max-width: 72ch;
+  color: var(--ink-secondary);
+  font-size: 0.96rem;
+  line-height: 1.62;
+}
+
+.postcard-prompt {
+  margin-top: 0.85rem !important;
+  padding-top: 0.8rem;
+  border-top: 1px dashed var(--line-strong);
+  color: var(--ink-primary) !important;
+}
 
 .harbor-footer {
   padding: 2rem 0 3rem;
@@ -668,6 +949,12 @@ body {
   .name-input {
     flex: 1;
     min-width: 140px;
+  }
+
+  .band-ledger {
+    margin-left: 0;
+    width: 100%;
+    justify-content: space-between;
   }
 }
 

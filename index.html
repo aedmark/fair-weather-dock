@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>High &amp; Dry — The Fair-Weather Dock</title>
-  <meta name="description" content="An interactive maritime physics diorama for stress-testing fair-weather friends with heavy couches, sudden rainstorms, split dinner checks, and 5 AM airport runs." />
+  <meta name="description" content="An interactive maritime parable and generative harbor band about fair-weather habits, heavy couches, mutual ballast, and showing up first." />
   <meta name="theme-color" content="#f5efe4" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -21,6 +21,7 @@
       </a>
       <nav class="masthead-actions" aria-label="Harbor controls and sections">
         <a class="nav-link" href="#field-guide" id="fieldGuideNavLink">Field Guide</a>
+        <a class="nav-link" href="#harbor-postcard">Postcard</a>
         <button type="button" class="utility-btn" id="themeToggleBtn" aria-label="Switch harbor lighting">
           Harbor: Day
         </button>
@@ -36,21 +37,21 @@
       <div class="hero-copy">
         <h1 id="pageTitle">High &amp; Dry: The Fair-Weather Dock</h1>
         <p class="subhead">
-          Everyone talks loud on a sunny pier. Invite a crowd onto the planks, flick the suspicious ones toward Excuse Sea, or run a minor real-life inconvenience to see who stays bolted to the timber.
+          We all talk big on a sunny pier. Invite a crowd of gloriously overwhelmed humans onto the planks, see what happens when real life drops a sofa from the sky—then see who stays when you start showing up first.
         </p>
       </div>
 
-      <div class="telemetry-ledger" aria-label="Harbor scoreboard">
+      <div class="telemetry-ledger" aria-label="Harbor ledger">
         <div class="stat-block">
-          <span class="stat-label">Flakes Exposed</span>
-          <span class="stat-value" id="flakesCountReadout">0</span>
+          <span class="stat-label">Shown Up</span>
+          <span class="stat-value warmth-highlight" id="shownUpReadout">0</span>
         </div>
         <div class="stat-block">
           <span class="stat-label">On the Pier</span>
           <span class="stat-value" id="pierCountReadout">0</span>
         </div>
         <div class="stat-block">
-          <span class="stat-label">Real Ones</span>
+          <span class="stat-label">Anchored</span>
           <span class="stat-value real-highlight" id="realCountReadout">0</span>
         </div>
       </div>
@@ -60,28 +61,41 @@
       <div class="stage-topbar">
         <div class="stage-instructions">
           <span><strong>Click pier</strong> to invite</span>
-          <span><strong>Poke</strong> to inspect</span>
-          <span><strong>Drag &amp; flick</strong> into Excuse Sea</span>
-          <span><strong>Click the duck</strong> if you need a squeak</span>
+          <span><strong>Click flares [!]</strong> to show up</span>
+          <span><strong>Poke</strong> to check in</span>
+          <span><strong>Click radio</strong> to tune</span>
+          <span><strong>Click duck</strong> for morale</span>
         </div>
-        <span class="weather-readout" id="weatherReadout">CONDITIONS: CLEAR // 72°F</span>
+        <span class="weather-readout" id="weatherReadout">CONDITIONS: SUNNY PIER // 72°F</span>
       </div>
 
       <div class="stage-frame" id="stageFrame">
-        <canvas id="harborCanvas" aria-label="Animated wooden pier over Excuse Sea populated by cartoon friends"></canvas>
+        <canvas id="harborCanvas" aria-label="Animated wooden pier over Excuse Sea populated by friends and a dockside radio"></canvas>
         <div class="stage-toast" id="stageToast" role="status" aria-live="polite"></div>
+
+        <aside class="mirror-card" id="mirrorCard" aria-live="polite" hidden>
+          <div class="mirror-card-eyebrow" id="mirrorEyebrow">LOW TIDE // REFLECTION ON EXCUSE SEA</div>
+          <h2 class="mirror-card-title" id="mirrorTitle">Quiet out here when everyone fails the test.</h2>
+          <p class="mirror-card-body" id="mirrorBody"></p>
+          <ul class="mirror-list" id="mirrorList"></ul>
+          <p class="mirror-motto">Show up for the ones who stay. Stay for the ones who show up.</p>
+          <div class="mirror-actions">
+            <button type="button" class="btn btn-primary" id="mirrorPrimaryBtn">Try Showing Up First</button>
+            <button type="button" class="btn btn-quiet" id="mirrorDismissBtn">Stay on the Planks</button>
+          </div>
+        </aside>
       </div>
 
       <div class="control-bar">
         <div class="control-row">
           <form class="spawn-group" id="inviteForm" autocomplete="off">
-            <label for="customNameInput" class="skip-link">Optional friend label</label>
+            <label for="customNameInput" class="skip-link">Name someone in your corner</label>
             <input
               type="text"
               id="customNameInput"
               class="name-input"
               maxlength="18"
-              placeholder="Optional nickname..."
+              placeholder="Someone in your corner..."
             />
             <button type="submit" class="btn btn-primary" id="inviteFriendBtn">
               + Invite to Pier <span class="kbd-hint">I</span>
@@ -94,8 +108,26 @@
         </div>
 
         <div class="control-row">
-          <div class="test-group" role="group" aria-label="Friendship stress tests">
-            <span class="test-group-label">Stress Tests:</span>
+          <div class="test-group" role="group" aria-label="Show up first for friends on the pier">
+            <span class="test-group-label care-label">Show Up First:</span>
+            <button type="button" class="btn btn-care" id="careTextBtn" title="Send a warm, zero-pressure check-in text across the pier">
+              Send "No-Strings" Text <span class="kbd-hint">Q</span>
+            </button>
+            <button type="button" class="btn btn-care" id="careSoupBtn" title="Put on hot cocoa and soup so anxious friends can hang without pressure">
+              Put On Hot Soup <span class="kbd-hint">W</span>
+            </button>
+            <button type="button" class="btn btn-care" id="careSlickerBtn" title="Hand out spare yellow slickers before or during a storm">
+              Share Slickers <span class="kbd-hint">E</span>
+            </button>
+            <button type="button" class="btn btn-care" id="careSpotBtn" title="Pitch in early and answer anyone currently asking for a hand">
+              Pitch In Early <span class="kbd-hint">S</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="control-row">
+          <div class="test-group" role="group" aria-label="Real-life inconveniences">
+            <span class="test-group-label">Life Happens:</span>
             <button type="button" class="btn" id="testCouchBtn" data-scary="1">
               Move a Couch <span class="kbd-hint">1</span>
             </button>
@@ -103,7 +135,7 @@
               Make It Rain <span class="kbd-hint">2</span>
             </button>
             <button type="button" class="btn" id="testQuietBtn" data-scary="1">
-              Stop Texting First <span class="kbd-hint">3</span>
+              Go Quiet 2 Weeks <span class="kbd-hint">3</span>
             </button>
             <button type="button" class="btn" id="testBillBtn" data-scary="1">
               Split the Check <span class="kbd-hint">4</span>
@@ -113,18 +145,42 @@
             </button>
           </div>
         </div>
+
+        <div class="control-row radio-row">
+          <div class="radio-tuner" role="group" aria-label="Pier bench radio station">
+            <span class="test-group-label">Pier Radio <span class="kbd-hint">T</span>:</span>
+            <button type="button" class="radio-pill is-active" data-station="auto">Auto DJ</button>
+            <button type="button" class="radio-pill" data-station="shanty">Sea Shanty</button>
+            <button type="button" class="radio-pill" data-station="bossa">Pier Bossa</button>
+            <button type="button" class="radio-pill" data-station="lofi">Harbor Lo-Fi</button>
+            <button type="button" class="radio-pill" data-station="ragtime">Boardwalk Rag</button>
+            <button type="button" class="radio-pill" data-station="off">Off</button>
+          </div>
+
+          <div class="band-ledger" aria-label="Crowd ensemble stems">
+            <span class="radio-now-playing" id="radioNowPlaying">Standby · Click pier to start</span>
+            <div class="stem-strip" id="stemStrip">
+              <span class="stem-chip is-real is-lit" data-stem="real" title="Anchored Spine: Upright Walking Bass &amp; Harmonium/Pad">Bass·Pad</span>
+              <span class="stem-chip is-lit" data-stem="cardboard" title="Hype Cutout: Boxy Deck Kick &amp; Snare">Drums</span>
+              <span class="stem-chip is-lit" data-stem="bolter" title="Track-Star Bolter: Running Hi-Hats &amp; Brush">Hats</span>
+              <span class="stem-chip is-lit" data-stem="hologram" title="Signal Hologram: Stereo Synth Arpeggio">Arp</span>
+              <span class="stem-chip is-lit" data-stem="helium" title="Helium Bestie: Just-Intonation Harbor Chimes">Chimes</span>
+              <span class="stem-chip is-lit" data-stem="paper" title="Origami Sailor: Singing Lead Melody">Lead</span>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="logbook-bar" aria-live="polite">
         <span class="logbook-tag">Harbor Log</span>
-        <p class="logbook-entry" id="harborLogEntry">Pier open. Five guests loitering on the planks; structural integrity unverified.</p>
+        <p class="logbook-entry" id="harborLogEntry">Pier open. Six overwhelmed mortals on the planks; watch for incoming flares or put on a pot of soup.</p>
       </div>
     </section>
 
     <section class="field-guide" id="field-guide" aria-labelledby="fieldGuideHeading">
       <div class="section-header">
-        <h2 id="fieldGuideHeading">Maritime Field Guide to Pier Guests</h2>
-        <p>SIX DOCUMENTED COMPOSITIONS // OBSERVED UNDER MILD INCONVENIENCE</p>
+        <h2 id="fieldGuideHeading">Field Guide to Us on a Busy Week</h2>
+        <p>SIX HABITS WE ALL ROTATE THROUGH // AND HOW WE HELP EACH OTHER ANCHOR</p>
       </div>
 
       <div class="specimen-ledger">
@@ -136,10 +192,10 @@
             </svg>
           </div>
           <div>
-            <div class="specimen-meta">Specimen 01 // Corrugated Pulp</div>
+            <div class="specimen-meta">Habit 01 // Corrugated Enthusiasm · Deck Drums</div>
             <h3>The Hype Cutout</h3>
-            <p>Shouts "RIDE OR DIE" in every group chat and comments fire emojis within four seconds. Possesses the load-bearing capacity of a damp cereal box.</p>
-            <p class="specimen-tell">Diagnostic tell: Hollow thud when poked; folds flat at first sight of furniture.</p>
+            <p>Means every single fire emoji at 11:30 PM. Panics at 9:00 AM Saturday when an actual sleeper sofa has corners, stairs, and gravity.</p>
+            <p class="specimen-tell">How we anchor: Hand them one small, concrete corner to hold. Once we survive one errand together, pulp turns to timber.</p>
           </div>
         </article>
 
@@ -151,10 +207,10 @@
             </svg>
           </div>
           <div>
-            <div class="specimen-meta">Specimen 02 // Pressurized Gas</div>
+            <div class="specimen-meta">Habit 02 // Overbooked Helium · Harbor Chimes</div>
             <h3>The Helium Bestie</h3>
-            <p>Perpetually thrilled to see you, insists you "MUST catch up this week," and is already drifting into the upper stratosphere before choosing a Tuesday.</p>
-            <p class="specimen-tell">Diagnostic tell: Squeaks on contact; untethers immediately when plans require a calendar.</p>
+            <p>Genuinely adores you, accidentally promised three different groups brunch at noon, and is now orbiting Jupiter out of sheer calendar guilt.</p>
+            <p class="specimen-tell">How we anchor: Put on a low-stakes pot of soup with zero itinerary. Gravity returns when hanging out doesn't have to be an Event.</p>
           </div>
         </article>
 
@@ -166,10 +222,10 @@
             </svg>
           </div>
           <div>
-            <div class="specimen-meta">Specimen 03 // Low-Bitrate Projection</div>
+            <div class="specimen-meta">Habit 03 // 144p Bandwidth · Synth Arp</div>
             <h3>The Signal Hologram</h3>
-            <p>Renders in crisp high definition whenever you are hosting dinner. Drops to 144p static the moment you stop initiating every single conversation.</p>
-            <p class="specimen-tell">Diagnostic tell: Dissolves into scanlines and leaves a floating "Seen 3w ago" receipt.</p>
+            <p>Cares deeply from behind 47 open tabs. Waited until they had energy to write a proper reply, got embarrassed on day five, and accidentally invented a month of silence.</p>
+            <p class="specimen-tell">How we anchor: Send the "no need to reply fast, just thinking of you" text. Permission to show up at 144p brings us back in HD.</p>
           </div>
         </article>
 
@@ -181,10 +237,10 @@
             </svg>
           </div>
           <div>
-            <div class="specimen-meta">Specimen 04 // Coiled Spring</div>
+            <div class="specimen-meta">Habit 04 // Fight-or-Flight Laces · Running Hats</div>
             <h3>The Track-Star Bolter</h3>
-            <p>Keeps marathon shoes double-knotted at all times. Clocks a sub-four-minute mile off the pier the instant an itemized restaurant check hits the table.</p>
-            <p class="specimen-tell">Diagnostic tell: Sweats visibly when your cursor nears any responsibility button.</p>
+            <p>Keeps marathon shoes double-knotted because modern adulthood feels like a relentless ambush of surprise tabs, favors, and calendar invites.</p>
+            <p class="specimen-tell">How we anchor: Pitch in early without keeping a forensic Venmo ledger. Generosity gets easy once nobody feels cornered.</p>
           </div>
         </article>
 
@@ -196,10 +252,10 @@
             </svg>
           </div>
           <div>
-            <div class="specimen-meta">Specimen 05 // Uncoated Stock</div>
+            <div class="specimen-meta">Habit 05 // Fair-Weather Paper · Lead Melody</div>
             <h3>The Origami Sailor</h3>
-            <p>Allergic to overcast skies, hard weeks, or unglamorous errands. Creases neatly into a paper boat at 62% humidity and sails smoothly out of reach.</p>
-            <p class="specimen-tell">Diagnostic tell: Refuses indoor/outdoor transitions; catches the first gust east.</p>
+            <p>Secretly convinced that having a hard week makes them a burden, so they fold neatly into a paper boat and drift off whenever clouds roll in.</p>
+            <p class="specimen-tell">How we anchor: Toss them a spare yellow slicker before it pours. Storms stop scaring us once someone proves we don't have to stay dry alone.</p>
           </div>
         </article>
 
@@ -213,23 +269,37 @@
             </svg>
           </div>
           <div>
-            <div class="specimen-meta">Specimen 06 // Seasoned Cast-Iron</div>
-            <h3>The Real One</h3>
-            <p>Rare. Speaks in lowercase. Brings snacks without being asked, puts on a yellow slicker when it pours, grabs the heavy end of the sofa, and refuses to be flicked off the pier.</p>
-            <p class="specimen-tell">Diagnostic tell: Rings with a solid iron clunk; plants boots at the edge of the dock.</p>
+            <div class="specimen-meta">Habit 06 // Mutual Ballast · Walking Bass &amp; Organ</div>
+            <h3>The Anchored Friend</h3>
+            <p>Not a mythical breed—just an ordinary, slightly tired human who practiced staying. Speaks in lowercase, grabs the heavy end of the sofa, and pulls up at 4:55 AM with two coffees.</p>
+            <p class="specimen-tell">Harbor secret: Nobody arrives made of cast iron. We temper each other, one small Tuesday at a time.</p>
           </div>
         </article>
+      </div>
+    </section>
+
+    <section class="harbor-postcard" id="harbor-postcard" aria-labelledby="postcardHeading">
+      <div class="postcard-inner">
+        <div class="postcard-stamp">PIER NO. 04 // FIELD NOTE ON PRESENCE</div>
+        <h2 id="postcardHeading">Show up for the ones who stay. Stay for the ones who show up.</h2>
+        <p>
+          Every one of us has been the damp cereal box, the runaway sneaker, and the three-week-late text at some point this year. Good friends aren't discovered by dropping couches from the sky until everyone fails a purity test—they're built when somebody goes first with a spare slicker, a pot of soup, or an unprompted <em>"hey, no need to reply, just in your corner."</em>
+        </p>
+        <p class="postcard-prompt">
+          <strong>Before you leave the pier:</strong> think of one person who has quietly held down the planks for you—or one friend whose signal has gone quiet lately—and send them a real text first today.
+        </p>
       </div>
     </section>
   </main>
 
   <footer class="harbor-footer">
     <div class="shell footer-inner">
-      <p class="footer-note">Built on Pier No. 04 by Graham, Ziggy &amp; Jade. Keep the ones who lift with their knees.</p>
-      <span class="kbd-legend">Shortcuts: [I] Invite · [1–5] Stress Tests · [M] Audio · [R] Fresh Pier</span>
+      <p class="footer-note">Built on Pier No. 04 by Graham, Ziggy &amp; Jade. Music adapted from The Whimsy Machine.</p>
+      <span class="kbd-legend">Shortcuts: [I] Invite · [Q/W/E/S] Show Up · [1–5] Life Happens · [T] Radio · [M] Audio · [R] Fresh Pier</span>
     </div>
   </footer>
 
+  <script src="music.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
