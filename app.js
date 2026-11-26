@@ -1,5 +1,5 @@
 /* ==========================================================================
-   High & Dry: The Fair-Weather Dock — Harbor Simulation & Physics Engine
+   The Fair-Weather Dock - Harbor Simulation & Physics Engine
    ========================================================================== */
 
 (() => {
@@ -308,7 +308,7 @@
     ],
     braveStay: [
       'deep breath… ok i am staying!',
-      'you showed up for me—my turn.',
+      'you showed up for me! my turn.',
       'almost bolted… grab that end!',
       'not ghosting this time.'
     ],
@@ -451,16 +451,16 @@
     if (mode === 'low') {
       state.lowMirrorShown = true;
       mirrorCard.classList.remove('is-celebration');
-      mirrorEyebrow.textContent = 'LOW TIDE // MIRROR ON EXCUSE SEA';
+      mirrorEyebrow.textContent = 'LOW TIDE // MIRROR ON INDIFFERENCE';
       mirrorTitle.textContent = 'Quiet out here when everyone fails the test.';
       mirrorBody.textContent = 'Look down into the calm water for a second, though, and every excuse floating out there looks suspiciously like all of us on an overwhelmed week:';
 
       const bullets = [
         state.missedSignals > 0
           ? `${state.missedSignals} friend${state.missedSignals > 1 ? 's' : ''} sent up a quiet flare on the planks while we were busy testing the crowd.`
-          : 'We have all shouted "WE HAVE TO CATCH UP SOON!!" while already floating past Tuesday.',
+          : 'We have all shouted "WE HAVE TO CATCH UP SOON!!" while already floating past the dock.',
         'We have all stared at a message behind 47 open tabs until week three made replying feel weird.',
-        'Nobody arrives made of cast iron—we build ballast by showing up before the couch drops.'
+        'Nobody arrives made of cast iron. We build ourselves up by showing up before the couch drops.'
       ];
       bullets.forEach((line) => {
         const li = document.createElement('li');
@@ -475,10 +475,10 @@
       mirrorCard.classList.add('is-celebration');
       mirrorEyebrow.textContent = 'HIGH TIDE // FULL HARBOR SESSION';
       mirrorTitle.textContent = 'Look who stayed on the planks.';
-      mirrorBody.textContent = 'Half this pier arrived as damp cardboard, tangled balloon string, and 144p static. Nobody passed a purity test—somebody just went first with soup, a spare slicker, and a zero-pressure text.';
+      mirrorBody.textContent = 'Half this pier arrived as damp cardboard, tangled balloon string, and 144p static. Somebody has to eventually be the first with soup, a spare slicker, and a zero-pressure text.';
 
       const bullets = [
-        'Every anchored friend kept their own instrument in the band—and plays steady through any squall.',
+        'Every anchored friend kept their own instrument in the band-and plays steady through any squall.',
         'Try dropping a couch or rainstorm now: mutual ballast holds the whole pier together.',
         'Before you head out, read the Field Note below and send one real text off-screen today.'
       ];
@@ -691,7 +691,7 @@
     const anchoredNow = addBallast(f, 1.35, true);
     if (anchoredNow) {
       sfx.anchorForge();
-      writeLog(`Showed up for ${guestTitle(f)} — "${need.thanks}" They anchored to the pier!`);
+      writeLog(`Showed up for ${guestTitle(f)} - "${need.thanks}" They anchored to the pier!`);
       checkHighTideCelebration();
     } else {
       sfx.warmShowUp();
@@ -738,7 +738,7 @@
       }
     });
 
-    showToast('Sent: "Hey, zero rush to reply—just thinking of you."');
+    showToast('Sent: "Hey, zero rush to reply... just thinking of you."');
     writeLog(answered > 0
       ? 'No-strings check-in answered quiet flares across the planks and steadied the crowd.'
       : 'Sent a zero-pressure check-in text. Signal Holograms stopped buffering out of guilt.');
@@ -780,7 +780,7 @@
     if (state.mirrorMode === 'low') closeMirrorCard();
     const alive = state.friends.filter(f => !f.dead && !f.fleeing);
     if (alive.length === 0) {
-      showToast('No one on the planks yet—invite a friend first!');
+      showToast('No one on the planks yet!');
       return;
     }
     state.shownUp++;
@@ -834,7 +834,7 @@
       }
     });
 
-    showToast('Brought extra coffees & lifting gloves—no scorecards.');
+    showToast('Brought extra coffees & lifting gloves.');
     writeLog('Pitched in early without keeping score. Sneaker laces untensed across Pier 04.');
     updateHUD();
   }
@@ -1084,7 +1084,7 @@
     if (startWithWarmCare) {
       runCareSoup();
     } else {
-      writeLog('Fresh pier planks laid. Six overwhelmed humans aboard—watch for incoming flares [!] or show up first.');
+      writeLog('Fresh pier planks laid. Six overwhelmed humans aboard. Watch for incoming flares [!] or show up first.');
     }
     updateHUD();
   }
@@ -1275,7 +1275,7 @@
             f.speech = pick(DIALOGUE.pokeReal);
             f.speechTimer = 2.8;
             spawnParticles(f.x, f.y - 18, '#fbbf24', 6, { up: 75 });
-            writeLog(`Checked in on ${guestTitle(f)} — solid and grounded: "${f.speech}"`);
+            writeLog(`Checked in on ${guestTitle(f)} ; solid and grounded: "${f.speech}"`);
           } else {
             if (f.type === 'cardboard') { sfx.cardboard(); f.flatScale = 0.45; }
             else if (f.type === 'hologram') { sfx.glitch(); f.glitch = 0.45; }
@@ -2623,7 +2623,7 @@
       ctx.restore();
     }
 
-    // Active Incoming Signal Flare [!] — clickable bid for connection!
+    // Active Incoming Signal Flare [!]
     if (f.need && !f.fleeing && !f.dead) {
       const pulse = 0.5 + 0.5 * Math.sin(state.time * 7);
       const labelText = `[!] ${f.need.prompt}`;
